@@ -1,25 +1,10 @@
 import React, { useState } from "react";
 
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-function GameBoard({ onSelectSquare, turns }) {
-  let gameBoard = initialGameBoard;
-
-  for (let turn of turns) {
-    const { square, player } = turn;
-
-    const { row, col } = square;
-
-    gameBoard[row][col] = player;
-  }
+function GameBoard({ onSelectSquare, board }) {
 
   return (
     <ol id="game-board">
-      {gameBoard.map((row, rowIndex) => {
+      {board.map((row, rowIndex) => {
         return (
           <li key={rowIndex}>
             <ol>
@@ -27,7 +12,7 @@ function GameBoard({ onSelectSquare, turns }) {
                 // console.log(playerSymbol);
                 return (
                   <li key={colIndex}>
-                    <button onClick={() => onSelectSquare(rowIndex, colIndex)}>
+                    <button onClick={() => onSelectSquare(rowIndex, colIndex)} disabled={playerSymbol !== null}>
                       {playerSymbol}
                     </button>
                   </li>
